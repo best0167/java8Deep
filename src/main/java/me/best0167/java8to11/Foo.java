@@ -7,7 +7,39 @@ public class Foo {
     // 함수 밖의 있는 값을 참조하거나 변경하면 안된다. 오로지 함수 내부에서 쓰는 값. 전달받은 파라미터 값만 써야한다.
     public static void main(String[] args) {
 
+        Foo foo = new Foo();
+        foo.run();
+    }
 
+    private void run() {
+        int baseNumber = 10; // effective final
+
+/*        // 로컬 클래스
+        class LocalClass {
+            void printBaseNumber() {
+                int baseNumber = 11;
+                System.out.println(baseNumber);  // 11
+            }
+        }
+
+        // 익명 클래스
+        Consumer<Integer> integerConsumer = new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) {
+                int baseNumber = 12;
+                System.out.println(baseNumber);
+            }
+        };*/
+
+        // 람다. shadowing 이 일어나지 않는다.
+        IntConsumer printInt = (i) -> { // 같은 scope(범위) 라서 baseNumber를 쓰지 못한다.
+            System.out.println(i + baseNumber);
+        };
+
+        printInt.accept(10);
+    }
+
+    // BinaryOperator<Integer> sum = (a, b) -> a + b;
 
         /*// 입력하는 값과 리턴하는 값의 타입이 같으면 UnaryOperator 사용 가능
         UnaryOperator<Integer> plus10 = (i) -> i + 10;
@@ -57,4 +89,4 @@ public class Foo {
         RunSomething runSomething = () -> System.out.println("Hello");
         runSomething.doIt();
     }*/
-}
+//}
