@@ -5,6 +5,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class App {
 
@@ -16,12 +17,43 @@ public class App {
         names.add("eric");
         names.add("foo");
 
-        Comparator<String> compareToIgnoreCase = String::compareToIgnoreCase;
+/*        List<String> collect = names.stream().map((s) -> {
+            System.out.println(s + " " + Thread.currentThread().getName());
+            return s.toUpperCase();
+        }).collect(Collectors.toList());
+        collect.forEach(System.out::println);
+
+        *//*List<String> collect = names.parallelStream().map((s) -> {
+            System.out.println(s + " " + Thread.currentThread().getName());
+            return s.toUpperCase();
+        }).collect(Collectors.toList());
+        collect.forEach(System.out::println);*//*
+
+        // parallelStream() 을 쓰면 JVM 이 알아서 spliterator 로 병렬적으로 처리해준다.
+        // 데이터가 정말 방대할 경우엔 유용.
+*//*        List<String> collect = names.parallelStream().map(String::toUpperCase)
+                .collect(Collectors.toList());*//*
+
+        collect.forEach(System.out::println);*/
+
+/*        // Stream<String> stringStream = names.stream().map(String::toUpperCase);
+
+        List<String> collect = names.stream().map((s) -> {
+            System.out.println(s);
+            return s.toUpperCase();
+        }).collect(Collectors.toList());
+        collect.forEach(System.out::println);
+
+        System.out.println("===============");
+
+        names.forEach(System.out::println);*/
+
+/*        Comparator<String> compareToIgnoreCase = String::compareToIgnoreCase;
         names.sort(compareToIgnoreCase.reversed());
 
-        /*names.sort(String::compareToIgnoreCase);*/
+        *//*names.sort(String::compareToIgnoreCase);*//*
 
-        names.forEach(System.out::println);
+        names.forEach(System.out::println);*/
 
         /*names.removeIf(s -> s.startsWith("k"));
 
