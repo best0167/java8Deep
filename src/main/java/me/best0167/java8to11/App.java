@@ -20,6 +20,10 @@ public class App {
 
         System.out.println("spring 으로 시작하는 수업");
         // TODO
+        springClasses.stream()
+                .filter(oc -> oc.getTitle().startsWith("spring"))
+                .forEach(oc -> System.out.println(oc.getId()));
+
 
         System.out.println("close 되지 않은 수업");
         // TODO
