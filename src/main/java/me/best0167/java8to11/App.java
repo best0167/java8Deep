@@ -2,6 +2,7 @@ package me.best0167.java8to11;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ public class App {
         springClasses.add(new OnlineClass(2, "spring data jpa", true));
         springClasses.add(new OnlineClass(3, "spring mvc", false));
         springClasses.add(new OnlineClass(4, "spring core", false));
-        springClasses.add(new OnlineClass(5, "rest spi development", false));
+        springClasses.add(new OnlineClass(5, "rest api development", false));
 
         System.out.println("spring 으로 시작하는 수업");
         // TODO
@@ -27,9 +28,22 @@ public class App {
 
         System.out.println("close 되지 않은 수업");
         // TODO
+        springClasses.stream()
+                .filter(Predicate.not(OnlineClass::isClosed))
+                //.filter(oc -> !oc.isClosed())
+                /*{
+                    return !oc.isClosed();
+                });*/
+                .forEach(oc -> System.out.println(oc.getId()));
 
         System.out.println("수업 이름만 모아서 스트림 만들기");
         // TODO
+        springClasses.stream()
+                .map(OnlineClass::getTitle)
+                .forEach(System.out::println);
+                /*.map(oc -> oc.getTitle())
+                .forEach(s -> System.out.println(s));*/
+        // springClasses.forEach(oc -> System.out.println(oc.getTitle()));
 
         List<OnlineClass> javaClasses = new ArrayList<>();
         javaClasses.add(new OnlineClass(6, "The Java, Test", true));
@@ -42,6 +56,8 @@ public class App {
 
         System.out.println("spring 으로 시작하는 수업");
         // TODO
+
+
 
         System.out.println("close 되지 않은 수업");
         // TODO
